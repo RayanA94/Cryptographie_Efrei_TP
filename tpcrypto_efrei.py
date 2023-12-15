@@ -29,7 +29,7 @@ def dechiffrement_CBC(ciphertext, key, IV):
     return plain_text
 
 # Exemple d'utilisation
-plaintext = "Thibaut"
+plaintext = "Rayan"
 key = "lacléderayan"
 IV = "randomIV"  # Choisissez un IV approprié
 
