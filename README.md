@@ -11,4 +11,6 @@ Un script pour déchiffrer un élément.
 L'algorithme de chiffrement à utiliser est l'opération XOR.
 
 
-Le travail demandé se situe dans le fichier tpcrypto_efrei.py.
+Le travail demandé se situe dans le fichier projetpython.py.
+
+La v1.0 du projet se trouve également ici.
