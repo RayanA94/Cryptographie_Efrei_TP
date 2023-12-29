@@ -2,34 +2,44 @@ def xor_bytes(b1, b2):
     return bytes(a ^ b for a, b in zip(b1, b2))
 
 def chiffrement_CBC_fichier(file_in, file_out, key, IV):
+    # Lecture du contenu du fichier à chiffrer
     with open(file_in, 'rb') as f:
         plaintext = f.read()
 
+    # Division du texte en blocs de la taille de la clé
     blocks = [plaintext[i:i + len(key)] for i in range(0, len(plaintext), len(key))]
     cipher_text = b''
-    prev_block = IV.encode()  
+    prev_block = IV.encode()  # Convertit le vecteur d'initialisation (IV) en bytes
 
+    # Écriture du texte chiffré dans le fichier de sortie
     with open(file_out, 'wb') as f:
         for block in blocks:
+            # Opération XOR entre le bloc courant et le bloc précédent
             block = xor_bytes(block, prev_block)
+            # Opération XOR entre le résultat précédent et la clé pour chiffrer le bloc
             cipher_block = xor_bytes(block, key.encode())
-            f.write(cipher_block)
-            prev_block = cipher_block
+            f.write(cipher_block)  # Écrit le bloc chiffré dans le fichier de sortie
+            prev_block = cipher_block  # Met à jour le bloc précédent pour le prochain tour de boucle
 
 def dechiffrement_CBC_fichier(file_in, file_out, key, IV):
+    # Lecture du contenu du fichier chiffré
     with open(file_in, 'rb') as f:
         ciphertext = f.read()
 
+    # Division du texte chiffré en blocs de la taille de la clé
     blocks = [ciphertext[i:i + len(key)] for i in range(0, len(ciphertext), len(key))]
     plain_text = b''
-    prev_block = IV.encode()
+    prev_block = IV.encode()  # Convertit le vecteur d'initialisation (IV) en bytes
 
+    # Écriture du texte déchiffré dans le fichier de sortie
     with open(file_out, 'wb') as f:
         for block in blocks:
+            # Opération XOR entre le texte chiffré et la clé pour récupérer le texte déchiffré
             decrypted_block = xor_bytes(block, key.encode())
+            # Opération inverse du chiffrement CBC pour obtenir le texte déchiffré
             plain_block = xor_bytes(decrypted_block, prev_block)
-            f.write(plain_block)
-            prev_block = block
+            f.write(plain_block)  # Écrit le bloc déchiffré dans le fichier de sortie
+            prev_block = block  # Met à jour le bloc précédent pour le prochain tour de boucle
 
 # Exemple d'utilisation
 file_to_encrypt = 'poulet.txt'
