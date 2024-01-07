@@ -33,9 +33,9 @@ def dechiffrement_CBC_fichier(file_in, file_out, key, IV):
            
 
 # Exemple d'utilisation
-file_to_encrypt = 'tajine.png'
+file_to_encrypt = 'test.txt'
 encrypted_file = 'fichier_chiffre.txt'
-decrypted_file = 'fichier_dechiffre.png'
+decrypted_file = 'fichier_dechiffre.txt'
 
 
 # with open('fichier_chiffre.txt', 'rb') as f:
