@@ -1,3 +1,5 @@
+import os  # Import pour la suppression du fichier temporaire
+
 def xor_bytes(b1, b2):
     return bytes(a ^ b for a, b in zip(b1, b2))
 
@@ -6,7 +8,6 @@ def chiffrement_CBC_fichier(file_in, file_out, key, IV):
         plaintext = f.read()
 
     blocks = [plaintext[i:i + len(key)] for i in range(0, len(plaintext), len(key))]
-    cipher_text = b''
     prev_block = IV.encode()  
 
     with open(file_out, 'wb') as f:
@@ -21,7 +22,6 @@ def dechiffrement_CBC_fichier(file_in, file_out, key, IV):
         ciphertext = f.read()
 
     blocks = [ciphertext[i:i + len(key)] for i in range(0, len(ciphertext), len(key))]
-    plain_text = b''
     prev_block = IV.encode()
 
     with open(file_out, 'wb') as f:
@@ -30,25 +30,39 @@ def dechiffrement_CBC_fichier(file_in, file_out, key, IV):
             plain_block = xor_bytes(decrypted_block, prev_block)
             f.write(plain_block)
             prev_block = block
-           
 
-# Exemple d'utilisation
-file_to_encrypt = 'test.txt'
-encrypted_file = 'fichier_chiffre.txt'
-decrypted_file = 'fichier_dechiffre.txt'
+def menu():
+    print("1. Chiffrer un fichier")
+    print("2. Déchiffrer un fichier")
+    print("0. Quitter")
+    choice = input("Choisissez une option : ")
+    return choice
 
+def main():
+    key = "Zw$Xq0+7i=9v%hN(2y@A!gE5lB&KcU#L*6TjPzRm3f1oCdV8DpYnHrM-IbS4JtF"
+    IV = "wG0o)3R$c#I5.y+Y2vhU*4X@nFmL%T=PeJ8tBkK!lA1jM6q9rZsHpVdFiN7Ezbu"
 
-# with open('fichier_chiffre.txt', 'rb') as f:
-#    data = f.read()
-#    for byte in data:
-#        binary_representation = format(byte, '08b')
-#        print(binary_representation, end=' ')
+    while True:
+        choice = menu()
 
+        if choice == '1':
+            file_to_encrypt = input("Entrez le nom du fichier à chiffrer : ")
+            encrypted_file = input("Entrez le nom du fichier de sortie (chiffré) : ")
+            chiffrement_CBC_fichier(file_to_encrypt, encrypted_file, key, IV)
+            print(f"Le fichier a été chiffré dans '{encrypted_file}'.")
 
+        elif choice == '2':
+            encrypted_file = input("Entrez le nom du fichier chiffré : ")
+            decrypted_file = input("Entrez le nom du fichier de sortie (déchiffré) : ")
+            dechiffrement_CBC_fichier(encrypted_file, decrypted_file, key, IV)
+            print(f"Le fichier déchiffré a été écrit dans '{decrypted_file}'.")
 
-plaintext = ""
-key = "Zw$Xq0+7i=9v%hN(2y@A!gE5lB&KcU#L*6TjPzRm3f1oCdV8DpYnHrM-IbS4JtF"
-IV = "wG0o)3R$c#I5.y+Y2vhU*4X@nFmL%T=PeJ8tBkK!lA1jM6q9rZsHpVdFiN7Ezbu"
+        elif choice == '0':
+            print("Au revoir Le Roi du Monde t'es trop beau en + !")
+            break
 
-chiffrement_CBC_fichier(file_to_encrypt, encrypted_file, key, IV)
-dechiffrement_CBC_fichier(encrypted_file, decrypted_file, key, IV)
+        else:
+            print("Choix invalide. Veuillez saisir une option valide.")
+
+if __name__ == "__main__":
+    main()
