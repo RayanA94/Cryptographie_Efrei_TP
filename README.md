@@ -1,4 +1,4 @@
-**TP 1 - Cryptographie 🐱‍👤**
+**TP 1 - Cryptographie 🥷🏾**
 
 **Consigne ✔**
 
