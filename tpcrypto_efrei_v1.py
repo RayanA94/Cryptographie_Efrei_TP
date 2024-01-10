@@ -36,7 +36,7 @@ def dechiffrement_CBC(ciphertext, key, IV):
 # Exemple d'utilisation
 plaintext = "Rayan"
 key = "lacléderayan"
-IV = "randomIV"  
+IV = "univderayan!"  
 
 # Chiffre le texte en utilisant la fonction chiffrement_CBC
 cipher_text = chiffrement_CBC(plaintext, key, IV)
