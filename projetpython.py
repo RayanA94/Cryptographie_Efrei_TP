@@ -15,9 +15,9 @@ def chiffrement_CBC_fichier(fichier_entre, fichier_sortie, key, IV):
     with open(fichier_sortie, 'wb') as f:
         for block in blocks:
             block = xor_bytes(block, prev_block)  # Opération XOR entre le bloc courant et le bloc précédent
-            cipher_block = xor_bytes(block, key.encode()) 
-            f.write(cipher_block)  
-            prev_block = cipher_block  
+            block_chiffrer = xor_bytes(block, key.encode()) 
+            f.write(block_chiffrer)  
+            prev_block = block_chiffrer  
 
 # Fonction pour déchiffrer un fichier chiffré en utilisant l'algorithme CBC
 def dechiffrement_CBC_fichier(fichier_entre, fichier_sortie, key, IV):
@@ -30,9 +30,9 @@ def dechiffrement_CBC_fichier(fichier_entre, fichier_sortie, key, IV):
 
     with open(fichier_sortie, 'wb') as f:
         for block in blocks:
-            decrypted_block = xor_bytes(block, key.encode())  # Déchiffrement avec la clé
-            plain_block = xor_bytes(decrypted_block, prev_block)  # Opération inverse du chiffrement CBC
-            f.write(plain_block)
+            block_dechiffrer = xor_bytes(block, key.encode())  # Déchiffrement avec la clé
+            block_neutre = xor_bytes(block_dechiffrer, prev_block)  # Opération inverse du chiffrement CBC
+            f.write(block_neutre)
             prev_block = block
 
 
