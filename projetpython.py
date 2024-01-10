@@ -65,7 +65,7 @@ def main():
             print(f"Le fichier déchiffré a été écrit dans '{decrypted_file}'.")
 
         elif choice == '0':
-            print("Au revoir Le Roi du Monde t'es trop beau en + !")
+            print("Au revoir Le GOAT !")
             break
 
         else:
